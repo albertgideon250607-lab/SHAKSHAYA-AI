@@ -1,0 +1,6 @@
+{
+  "name": "Shakshya AI",
+  "description": "AI-Powered Application Validation, Document Authentication and Regulatory Compliance Verification for AICTE Extension of Approval (EoA).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
