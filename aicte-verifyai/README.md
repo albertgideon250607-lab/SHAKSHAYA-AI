@@ -1,40 +1,108 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+\# SHAKSHAYA-AI
 
-# Shakshya AI
+TEAM: Strata Sense | SIH 2026 | PS ID: 26261
 
-Shakshya AI — Intelligent Document Verification and Regulatory Compliance Platform. Every Document. Verified with Intelligence.
 
-Shakshya AI is a frontend prototype for assistive EoA application readiness review. It preserves a human-in-the-loop workflow: automated findings are preliminary and do not constitute issuer verification or an approval decision.
 
-## Current implementation
+\*\*AI flags. Evidence proves. Officials decide.\*\*
 
-- Role-based prototype sign-in for institution, scrutiny officer, and administrator views.
-- Configurable deterministic validation rules for the synthetic EoA workflow.
-- Manual local document intake for PDF, PNG, JPEG, and WebP files (10 MB limit).
-- Browser-local OCR using Tesseract.js for images and PDF.js-rendered PDF pages (up to 5 pages per OCR run).
-- Browser-side SHA-256 hashing and duplicate-file warnings within an application.
-- Synthetic sample workflow for demonstrating extraction and cross-document findings.
-- PDF report generation and local audit history.
 
-Manual uploads are retained in browser memory for the current session. OCR runs in the browser; documents are not sent to an application backend. Tesseract.js downloads its worker/model assets when first used, but OCR processing itself remains local. No issuer API or database is connected in this repository.
 
-## Run locally
+SHAKSHAYA-AI is an AI-powered document validation platform designed to support AICTE regulatory compliance review.
 
-Prerequisite: Node.js
+
+
+\## Key Features
+
+
+
+\- OCR-based document text extraction
+
+\- Missing document detection
+
+\- Cross-document mismatch identification
+
+\- Evidence-based compliance reporting
+
+\- Human review for final decisions
+
+
+
+\## Technology Stack
+
+
+
+\- React
+
+\- TypeScript
+
+\- Vite
+
+\- Tesseract.js
+
+
+
+\## Run Locally
+
+
+
+Prerequisite: Node.js and npm.
+
+
 
 ```bash
+
 npm install --legacy-peer-deps
+
 npm run dev
+
 ```
 
-Available checks:
+
+
+\## Available Checks
+
+
 
 ```bash
+
 npm run lint
+
 npm test
+
 npm run build
+
 ```
 
-The `GEMINI_API_KEY` in `.env.example` is reserved for a future server-side integration. Do not place real API keys in frontend source or client-exposed environment variables.
+
+
+\## Privacy and Security
+
+
+
+Tesseract.js downloads its worker and model assets when first used, but OCR processing itself remains local in the browser. This repository does not connect to an issuer API or application backend.
+
+
+
+The `GEMINI\_API\_KEY` in `.env.example` is reserved for a future server-side integration. Never expose real API keys in frontend source code or client-side environment variables.
+
+
+
+\## Project Information
+
+
+
+\- Team: Strata Sense
+
+\- SIH 2026 Problem Statement ID: 26261
+
+
+
+\## Disclaimer
+
+
+
+Automated flags support document review; they do not establish fraud or replace decisions by authorized officials.
+
+
+
