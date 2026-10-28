@@ -1,374 +1,100 @@
-# \# SHAKSHAYA-AI
+# Shakshya AI
 
-# \### AI-Powered Document Validation and Evidence-Based Compliance Review
+**AI flags. Evidence proves. Officials decide.**
 
-# 
+Evidence-linked validation of AICTE Extension of Approval (EoA) applications.
+Smart India Hackathon 2026 · Problem Statement **26261** · Team **Strata Sense**
 
-# > \*\*AI flags. Evidence proves. Officials decide.\*\*
+> **Prototype for demonstration only. Not an official AICTE product.** All demo data is synthetic.
 
-# 
+## Overview
 
-# \*\*Smart India Hackathon 2026\*\* · \*\*Problem Statement ID: 26261\*\*  
+Institutions upload the documents required for an EoA application. Shakshya AI checks them against an APH-based checklist, shows **where** each issue was found in the document, and leaves the final decision with an authorized official.
 
-# \*\*Team: Strata Sense\*\*
+## Features
 
-# 
+- **7-document EoA checklist** based on the AICTE Approval Process Handbook
+- **Upload and processing** of PDF documents with text extraction
+- **Validation results** with severity and rule ID for each finding
+- **Evidence Inspector:** extracted text snippet, source file and page, recommended remediation, source PDF download
+- **Cross-document checks**, for example institution name mismatch between a TER receipt and the application record
+- **Readiness score** shown before submission
+- **Rectify and re-upload** with before/after comparison (for example 78% to 92%)
+- **PDF compliance report** download
+- **Three role-based portals:** Institution, Scrutiny Officer, Administrator
+- **Officer determination** with mandatory remarks (Recommend Approval, Show Cause / Rectify, Reject), recorded in an audit trail
+- **One-click demo** with sample institution `DEMO-EOA-001` and a safe reset
 
-# \---
+## Screenshots
 
-# 
+| Evidence Inspector | Rectification (before/after) | Officer determination |
+|---|---|---|
+| ![Evidence](docs/screenshots/evidence-inspector.png) | ![Rectify](docs/screenshots/rectification.png) | ![Officer](docs/screenshots/officer-determination.png) |
 
-# \## 1. Overview
+## How it works
 
-# 
+1. Institution views the 7-document checklist and uploads documents
+2. Text is extracted from each document
+3. Validation rules check missing, expired and mismatched information
+4. Findings are shown with evidence and a readiness score
+5. Institution rectifies flagged documents and re-uploads
+6. Scrutiny Officer reviews findings and records the determination
+7. Report is exported and actions are logged
 
-# \*\*Shakshya AI\*\* is an AI-assisted document validation platform designed to support the review of AICTE Extension of Approval (EoA) applications.
+## Tech stack
 
-# 
+React · TypeScript · Vite · pdf.js · jsPDF · Vitest
 
-# The platform helps identify missing documents, extract relevant information from uploaded files, detect potential inconsistencies across documents, and organize evidence for human review.
+## Getting started
 
-# 
+Requires Node.js 18 or later.
 
-# Instead of replacing regulatory authorities, Shakshya AI supports reviewers by highlighting potential issues and making the document-review process more structured, transparent, and efficient.
+```bash
+git clone https://github.com/albertgideon250607-lab/SHAKSHAYA-AI.git
+cd SHAKSHAYA-AI/aicte-verifyai
+npm install
+npm run dev
+```
 
-# 
+Open the local URL shown in the terminal and choose **Try One-Click Demo**.
+If `npm install` reports a peer dependency error, run `npm install --legacy-peer-deps`.
 
-# \## 2. Problem Statement
+| Command | Purpose |
+|---|---|
+| `npm run dev` | Start the development server |
+| `npm test` | Run unit tests (Vitest) |
+| `npm run build` | Type-check and build for production |
+| `npm run generate:samples` | Generate synthetic sample PDFs |
 
-# 
+## Responsible AI and limitations
 
-# Regulatory document verification can involve reviewing multiple documents, checking required information, and identifying inconsistencies across records.
+- Findings are **preliminary indicators**, not proof of forgery or non-compliance
+- The system **does not approve or reject** applications; officials record the final determination
+- Scanned documents without a text layer are flagged **"OCR required"** and routed to manual review instead of being guessed
+- Issuer and AICTE database verification is **not implemented**; real integrations would need authorization
+- Application data and officer determinations are stored in the browser (LocalStorage); there is no shared backend
+- The prototype covers the **EoA (self-disclosure)** workflow only, using synthetic documents
 
-# 
+## Roadmap
 
-# Manual review may be time-consuming and can make it difficult to trace the evidence behind a potential discrepancy.
+- Rules mapped to specific APH clauses, reviewed against the handbook
+- Authorized issuer verification (APIs, QR, digital signature)
+- OCR for scanned documents
+- Secure backend with controlled document storage
+- Benchmark on a larger synthetic test set
 
-# 
+## References
 
-# Key challenges include:
+- AICTE Approval Process Handbook (APH) 2024-25 to 2026-27, [aicte.gov.in](https://www.aicte.gov.in)
+- AICTE Public Notice for Approval Process 2026-27, Advt. No. AICTE/Regulation Bureau-AP/2026-27 dated 26/11/2025
+- LayoutLMv3, [arXiv:2204.08387](https://arxiv.org/abs/2204.08387)
+- AIForge-Doc, [arXiv:2602.20569](https://arxiv.org/abs/2602.20569)
+- NLP-based Automated Compliance Checking against GDPR, [arXiv:2209.09722](https://arxiv.org/abs/2209.09722)
 
-# 
+## Team
 
-# \- Identifying missing or incomplete documents.
+**Strata Sense** · Smart India Hackathon 2026 · PS 26261
 
-# \- Extracting relevant information from PDFs and scanned documents.
+## Disclaimer
 
-# \- Detecting inconsistencies between related documents.
-
-# \- Connecting flagged issues to supporting evidence.
-
-# \- Preparing clear and structured compliance-review reports.
-
-# 
-
-# \## 3. Proposed Solution
-
-# 
-
-# Shakshya AI combines document processing, OCR-based text extraction, validation rules, and evidence-oriented reporting in a unified interface.
-
-# 
-
-# The system assists reviewers by:
-
-# 
-
-# 1\. Accepting documents for review.
-
-# 2\. Extracting readable text from supported files.
-
-# 3\. Checking for missing documents and required information.
-
-# 4\. Comparing available information across documents.
-
-# 5\. Highlighting potential mismatches for further investigation.
-
-# 6\. Presenting findings to a human reviewer for verification.
-
-# 
-
-# \*\*Core principle:\*\* An automated flag is a request for review, not proof of fraud or a final compliance decision.
-
-# 
-
-# \## 4. Key Features
-
-# 
-
-# | Feature | Description |
-
-# |---|---|
-
-# | Document Processing | Supports document-based review workflows. |
-
-# | OCR-Based Extraction | Extracts text from supported scanned documents and images. |
-
-# | Missing Document Detection | Identifies required documents that may be absent. |
-
-# | Cross-Document Validation | Highlights potential inconsistencies between extracted fields. |
-
-# | Evidence-Based Findings | Helps reviewers trace flagged issues to relevant document information. |
-
-# | Compliance Review | Organizes findings to support human assessment. |
-
-# | Human-in-the-Loop | Keeps final verification and decisions with authorized reviewers. |
-
-# 
-
-# \## 5. System Workflow
-
-# 
-
-# ```text
-
-# Document Upload
-
-# &#x20;     ↓
-
-# Document Processing
-
-# &#x20;     ↓
-
-# OCR and Text Extraction
-
-# &#x20;     ↓
-
-# Required-Document Checks
-
-# &#x20;     ↓
-
-# Cross-Document Comparison
-
-# &#x20;     ↓
-
-# Potential Issues Flagged
-
-# &#x20;     ↓
-
-# Evidence Review
-
-# &#x20;     ↓
-
-# Human Verification
-
-# ```
-
-# 
-
-# The workflow is designed to make potential document issues easier to identify and investigate.
-
-# 
-
-# \## 6. Screenshots
-
-# 
-
-# Screenshots of the actual application can be added here to demonstrate the interface and workflow.
-
-# 
-
-# Recommended screenshots:
-
-# 
-
-# \- \*\*Application Dashboard\*\* — overview of the document-review interface.
-
-# \- \*\*Document Upload\*\* — supported document selection and upload process.
-
-# \- \*\*Validation Results\*\* — missing-document alerts and potential mismatches.
-
-# \- \*\*Evidence Review\*\* — extracted information and supporting evidence.
-
-# \- \*\*Compliance Report\*\* — structured summary of review findings.
-
-# 
-
-# Save the actual screenshots in a folder such as `docs/screenshots/` and embed them here using their real file paths.
-
-# 
-
-# \## 7. Technology Stack
-
-# 
-
-# | Technology | Purpose |
-
-# |---|---|
-
-# | React | User interface |
-
-# | TypeScript | Type-safe application development |
-
-# | Vite | Development server and build tooling |
-
-# | Tesseract.js | OCR-based text extraction |
-
-# | PDF.js | PDF document processing |
-
-# 
-
-# \## 8. Getting Started
-
-# 
-
-# \### Prerequisites
-
-# 
-
-# \- Node.js
-
-# \- npm
-
-# \- Git
-
-# 
-
-# \### Installation
-
-# 
-
-# Clone the repository:
-
-# 
-
-# ```bash
-
-# git clone https://github.com/albertgideon250607-lab/SHAKSHAYA-AI.git
-
-# cd SHAKSHAYA-AI
-
-# ```
-
-# 
-
-# Install dependencies:
-
-# 
-
-# ```bash
-
-# npm install --legacy-peer-deps
-
-# ```
-
-# 
-
-# Start the development server:
-
-# 
-
-# ```bash
-
-# npm run dev
-
-# ```
-
-# 
-
-# Open the local URL shown in the terminal.
-
-# 
-
-# \### Development Checks
-
-# 
-
-# Run the available project checks:
-
-# 
-
-# ```bash
-
-# npm run lint
-
-# npm test
-
-# npm run build
-
-# ```
-
-# 
-
-# These commands depend on the scripts configured in `package.json`. If a script is not configured, use the corresponding command supported by the project.
-
-# 
-
-# \## 9. Responsible AI, Privacy and Limitations
-
-# 
-
-# Shakshya AI is intended to assist document review, not independently determine regulatory compliance.
-
-# 
-
-# \- \*\*Human oversight:\*\* Final decisions remain with authorized officials.
-
-# \- \*\*Evidence-based review:\*\* Findings should be checked against the original documents.
-
-# \- \*\*OCR limitations:\*\* Poor image quality, handwriting, and unusual document layouts may affect extraction accuracy.
-
-# \- \*\*Potential false positives:\*\* A flagged mismatch may have a legitimate explanation and requires verification.
-
-# \- \*\*No automatic fraud verdict:\*\* A discrepancy alone does not establish fraud or document forgery.
-
-# \- \*\*Prototype limitations:\*\* This project should not be represented as an official AICTE verification service or as connected to an official issuer-verification API unless such integration has actually been implemented.
-
-# \- \*\*Privacy:\*\* Documents should be handled according to applicable privacy and security requirements.
-
-# 
-
-# \## 10. Future Enhancements
-
-# 
-
-# \- Expanded validation rules aligned with applicable regulatory requirements.
-
-# \- Improved OCR accuracy and structured field extraction.
-
-# \- More comprehensive evidence traceability and audit logs.
-
-# \- Reviewer feedback and issue-resolution workflows.
-
-# \- Secure backend integration and controlled document storage.
-
-# \- Integration with authorized verification services, subject to access and approval.
-
-# 
-
-# \## 11. References
-
-# 
-
-# \- \[AICTE Official Website](https://www.aicte-india.org/)
-
-# \- \[Smart India Hackathon](https://www.sih.gov.in/)
-
-# 
-
-# Regulatory rules and document requirements should be checked against the applicable official guidelines and their current versions.
-
-# 
-
-# \## 12. Team
-
-# 
-
-# \*\*Team Name:\*\* Strata Sense  
-
-# \*\*Project:\*\* Shakshya AI  
-
-# \*\*Event:\*\* Smart India Hackathon 2026  
-
-# \*\*Problem Statement ID:\*\* 26261
-
-# 
-
-# \## Disclaimer
-
-# 
-
-# Shakshya AI is a project prototype intended to support document validation and compliance review. Its findings are preliminary and must be independently verified. The platform does not replace official regulatory procedures, authorized verification, or decisions by competent authorities.
-
-
-
+Prototype created for Smart India Hackathon 2026. Not affiliated with or endorsed by AICTE. All institutions, documents and people in the demo are fictional. Findings are preliminary and must be verified by authorized officials.
